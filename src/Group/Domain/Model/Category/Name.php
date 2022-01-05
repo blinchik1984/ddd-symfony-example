@@ -4,8 +4,18 @@ declare(strict_types=1);
 
 namespace App\Group\Domain\Model\Category;
 
-use App\Core\AbstractSimpleIntValueObject;
+use App\Core\AbstractSimpleStringValueObject;
+use App\Group\Domain\Exception\Category\NameEmptyValueException;
 
-final class Name extends AbstractSimpleIntValueObject
+final class Name extends AbstractSimpleStringValueObject
 {
+    /**
+     * @throws NameEmptyValueException
+     */
+    protected function preConditionValidation(string $rawValue): void
+    {
+        if (empty($rawValue)) {
+            throw NameEmptyValueException::create($rawValue);
+        }
+    }
 }

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Group\Domain\Model\Group\Search\Order;
 
 use App\Core\AbstractSimpleStringValueObject;
+use App\Core\Exception\Group\Search\Order\NameInvalidValueException;
 
 use function in_array;
 
@@ -27,6 +28,9 @@ final class Name extends AbstractSimpleStringValueObject
         return self::STATUS === $this->getValue();
     }
 
+    /**
+     * @throws NameInvalidValueException
+     */
     protected function preConditionValidation(string $rawValue): void
     {
         if (!in_array($rawValue, self::AVAILABLE_LIST)) {
