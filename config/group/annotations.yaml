@@ -1,0 +1,3 @@
+groupControllers:
+  resource: ../../src/Group/UI/Controller/
+  type: annotation

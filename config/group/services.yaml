@@ -1,0 +1,36 @@
+services:
+  _defaults:
+    autowire: true      # Automatically injects dependencies in your services.
+    autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+    public: false
+    bind:
+      App\Group\Domain\Model\Category\CategoryRepositoryInterface: '@group.infrastructure.category.cached_repository'
+      App\Group\Domain\Model\Group\Search\Criteria\GroupRepositoryInterface: '@App\Group\Infrastructure\Model\Group\Persistence\Postgres\GroupRepository'
+      App\Group\Domain\Model\Producer\ProducerRepositoryInterface: '@App\Group\Infrastructure\Model\Producer\Persistence\Postgres\ProducerRepository'
+      App\Group\Domain\Model\Seller\Segment\SegmentRepositoryInterface: '@App\Group\Infrastructure\Model\Seller\Segment\Persistence\Postgres\SegmentRepository'
+      App\Group\Domain\Model\Seller\SellerRepositoryInterface: '@App\Group\Infrastructure\Model\Seller\Persistence\Postgres\SellerRepository'
+      App\Group\Domain\Model\Status\StatusRepositoryInterface: '@App\Group\Infrastructure\Model\Status\Persistence\Memory\StatusRepository'
+      App\Group\Domain\Model\VarParameter\Type\TypeRepositoryInterface: '@App\Group\Infrastructure\Model\VarParameter\Type\Persistence\Memory\TypeRepository'
+      App\Group\Domain\Model\VarParameter\VarParameterRepositoryInterface: '@App\Group\Infrastructure\Model\VarParameter\Persistence\Postgres\VarParameterRepository'
+
+
+  App\Group\Application\:
+    resource: ../../src/Group/Application/{Factory,Service,Transformer}
+
+  App\Group\Domain\:
+    resource: ../../src/Group/Domain/Model/*Service*
+
+  App\Group\Infrastructure\Model\:
+    resource: ../../src/Group/Infrastructure/Model/**/{*Factory*,*Repository*,*Service*,*Serializer*}
+
+  App\Group\Infrastructure\Model\AuditSubscriber:
+
+  group.infrastructure.category.cached_repository:
+    class: App\Group\Infrastructure\Model\Category\CachedCategoryRepository
+    arguments:
+      $categoryRepository: '@App\Group\Infrastructure\Model\Category\Persistence\Postgres\CategoryRepository'
+
+  group.domain_event_publisher:
+    class: App\Core\Event\DomainEventPublisher
+    calls:
+      - ['subscribe', ['@App\Group\Infrastructure\Model\AuditSubscriber']]

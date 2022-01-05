@@ -1,0 +1,6 @@
+vendor
+.env
+var
+composer.lock
+docker-compose*
+symfony.lock

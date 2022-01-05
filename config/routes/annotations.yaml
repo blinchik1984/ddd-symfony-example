@@ -1,0 +1,6 @@
+imports:
+    - { resource: ../group/annotations.yaml }
+
+kernel:
+    resource: ../../src/Kernel.php
+    type: annotation

@@ -1,0 +1,8 @@
+services:
+  _defaults:
+    public: false
+    autowire: true
+
+  App\Group\UI\Command:
+    resource: ../../src/Group/UI/Command
+    tags: ['app.commands']

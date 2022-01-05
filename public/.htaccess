@@ -1,0 +1,11 @@
+RewriteEngine on
+RewriteCond %{HTTP:Authorization} ^(.*)
+RewriteRule .* - [e=HTTP_AUTHORIZATION:%1]
+RewriteCond %{REQUEST_URI} !^/api/v1/
+RewriteCond %{REQUEST_URI} !^/xhprof
+RewriteRule ^(([a-z\-0-9]*/)*)([a-z\-0-9]*)$ dist/index.html
+
+RewriteCond %{REQUEST_URI} !/media
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(.+)$ index.php
