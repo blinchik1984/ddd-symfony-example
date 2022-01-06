@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Group\Domain\Model\Group\Search\Order;
 
 use App\Core\AbstractSimpleStringValueObject;
-use App\Core\Exception\Group\Search\Order\NameInvalidValueException;
+use App\Group\Domain\Exception\Group\Search\Order\NameInvalidValueException;
 
 use function in_array;
 

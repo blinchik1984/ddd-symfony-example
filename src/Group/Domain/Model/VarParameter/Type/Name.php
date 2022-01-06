@@ -8,4 +8,10 @@ use App\Core\AbstractSimpleStringValueObject;
 
 final class Name extends AbstractSimpleStringValueObject
 {
+    protected function preConditionValidation(string $rawValue): void
+    {
+        if (empty($rawValue)) {
+            throw NameEmptyValueException::create();
+        }
+    }
 }

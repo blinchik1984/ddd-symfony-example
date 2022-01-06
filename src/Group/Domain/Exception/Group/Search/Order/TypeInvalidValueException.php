@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Core\Exception\Group\Search\Order;
+namespace App\Group\Domain\Exception\Group\Search\Order;
 
 use App\Group\Domain\Exception\AbstractException;
 
